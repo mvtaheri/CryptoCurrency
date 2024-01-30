@@ -1,14 +1,20 @@
 package com.vahid.cryptocurrencyapp.data.remote
 
-import com.vahid.cryptocurrencyapp.data.remote.dto.CoinDetaisDto
-import com.vahid.cryptocurrencyapp.data.remote.dto.CoinDto
+import com.vahid.cryptocurrencyapp.data.remote.dto.DAICoinStats
+import com.vahid.cryptocurrencyapp.data.remote.dto.USDTCoinStats
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface CoinPaprikaApi {
-    @GET("/v1/coins")
-    suspend fun getCoins(): List<CoinDto>
+    @GET("market/stats")
+    suspend fun getUSDTCoins(
+        @Query("srcCurrency") srcCurrency: String = "usdt",
+        @Query("dstCurrency") dstCurrency: String = "rls"
+    ): USDTCoinStats
 
-    @GET("/v1/coins/{coinId}")
-    suspend fun getCoinById(@Path("coinId") coinId: String): CoinDetaisDto
+    @GET("market/stats")
+    suspend fun getDAiCoins(
+        @Query("srcCurrency") srcCurrency: String="dai",
+        @Query("dstCurrency") dstCurrency: String="rls"
+    ): DAICoinStats
 }

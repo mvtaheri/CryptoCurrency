@@ -1,6 +1,8 @@
 package com.vahid.cryptocurrencyapp
 
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,10 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.vahid.cryptocurrencyapp.presentation.coin_list.component.NavGraphs
 import com.vahid.cryptocurrencyapp.ui.theme.CryptoCurrencyAppTheme
+import com.vahid.cryptocurrencyapp.ui.theme.MainBackgroundColorMyApp
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -25,7 +28,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MainBackgroundColorMyApp
                 ) {
                     val navigation = DestinationsNavHost(navGraph = NavGraphs.root)
                 }

@@ -127,4 +127,7 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("org.jsoup:jsoup:1.11.3")
+
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
 }

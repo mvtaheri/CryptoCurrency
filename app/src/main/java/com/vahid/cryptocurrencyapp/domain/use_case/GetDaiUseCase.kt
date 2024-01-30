@@ -1,10 +1,7 @@
-package com.vahid.cryptocurrencyapp.domain.use_case.getcoin
+package com.vahid.cryptocurrencyapp.domain.use_case
 
 import com.vahid.cryptocurrencyapp.common.Resource
-import com.vahid.cryptocurrencyapp.data.remote.dto.toCoin
-import com.vahid.cryptocurrencyapp.data.remote.dto.toCoinDetails
-import com.vahid.cryptocurrencyapp.domain.model.Coin
-import com.vahid.cryptocurrencyapp.domain.model.CoinDetails
+import com.vahid.cryptocurrencyapp.data.remote.dto.DAICoinStats
 import com.vahid.cryptocurrencyapp.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,15 +9,14 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-
-class GetCoinUseCase @Inject constructor(
-    private val repository: CoinRepository
+class GetDaiUseCase @Inject constructor(
+    private val coinRepository: CoinRepository
 ) {
-    operator fun invoke(coinId: String): Flow<Resource<CoinDetails>> = flow {
+    operator fun invoke(): Flow<Resource<DAICoinStats>> = flow {
         try {
             emit(Resource.Loading())
-            val coin = repository.getCoinById(coinId).toCoinDetails()
-            emit(Resource.Success<CoinDetails>(coin))
+            val coin = coinRepository.getDAiCoins()
+            emit(Resource.Success<DAICoinStats>(coin))
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unExpected error occured"))
         } catch (e: IOException) {
@@ -28,4 +24,3 @@ class GetCoinUseCase @Inject constructor(
         }
     }
 }
-

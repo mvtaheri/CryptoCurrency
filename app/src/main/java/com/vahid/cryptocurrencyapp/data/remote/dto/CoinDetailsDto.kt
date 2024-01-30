@@ -1,5 +1,6 @@
 package com.vahid.cryptocurrencyapp.data.remote.dto
 
+import com.google.gson.annotations.SerializedName
 import com.vahid.cryptocurrencyapp.domain.model.CoinDetails
 
 data class CoinDetaisDto(

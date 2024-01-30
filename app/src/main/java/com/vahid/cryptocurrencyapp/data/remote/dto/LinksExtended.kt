@@ -1,7 +1,7 @@
 package com.vahid.cryptocurrencyapp.data.remote.dto
 
 data class LinksExtended(
-    val stats: Stats,
+    val stats: StatsUSDT,
     val type: String,
     val url: String
 )

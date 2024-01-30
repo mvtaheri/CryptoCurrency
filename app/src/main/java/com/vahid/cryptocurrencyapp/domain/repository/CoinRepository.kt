@@ -2,8 +2,11 @@ package com.vahid.cryptocurrencyapp.domain.repository
 
 import com.vahid.cryptocurrencyapp.data.remote.dto.CoinDetaisDto
 import com.vahid.cryptocurrencyapp.data.remote.dto.CoinDto
+import com.vahid.cryptocurrencyapp.data.remote.dto.DAICoinStats
+import com.vahid.cryptocurrencyapp.data.remote.dto.USDTCoinStats
 
 interface CoinRepository {
-    suspend fun getCoins(): List<CoinDto>
-    suspend fun getCoinById(coinId: String): CoinDetaisDto
+    suspend fun getUSDTCoins(): USDTCoinStats
+    suspend fun getDAiCoins(): DAICoinStats
+   suspend fun getDollarPrice(): String
 }

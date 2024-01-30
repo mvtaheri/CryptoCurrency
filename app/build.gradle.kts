@@ -82,18 +82,13 @@ dependencies {
 
 
     // Compose dependencies
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    implementation("androidx.compose.material:material-icons-extended:1.5.4")
-    implementation("com.google.accompanist:accompanist-flowlayout:0.17.0")
-    implementation("androidx.paging:paging-compose:3.3.0-alpha02")
     implementation("androidx.activity:activity-compose:1.8.1")
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha")
-    implementation("androidx.compose.material3:material3:1.1.2")
+//    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha")
+//    implementation("androidx.compose.material3:material3:1.1.2")
     // Compose Nav Destinations
     implementation("io.github.raamcosta.compose-destinations:core:1.8.42-beta")
     ksp("io.github.raamcosta.compose-destinations:ksp:1.8.42-beta")
-    // Coil
-    implementation("io.coil-kt:coil-compose:1.4.0")
+
 
     //Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.48")
@@ -108,17 +103,11 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.3")
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
 
-    // Room
-    implementation("androidx.room:room-runtime:2.6.0")
-    kapt("androidx.room:room-compiler:2.6.0")
-
-    // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.6.0")
 //    implementation ("androidx.navigation:navigation-compose:2.7.5")
     // Compose dependencies
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-rc01")
-    implementation("androidx.navigation:navigation-compose:2.7.5")
-    implementation("com.google.accompanist:accompanist-flowlayout:0.17.0")
+//    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-rc01")
+//    implementation("androidx.navigation:navigation-compose:2.7.5")
+//    implementation("com.google.accompanist:accompanist-flowlayout:0.17.0")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
@@ -126,7 +115,7 @@ dependencies {
 
     // Coroutine Lifecycle Scopes
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+//    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("org.jsoup:jsoup:1.11.3")
 
     implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")

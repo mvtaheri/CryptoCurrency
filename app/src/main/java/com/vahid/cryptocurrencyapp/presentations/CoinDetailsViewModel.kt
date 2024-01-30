@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vahid.cryptocurrencyapp.common.Resource
 import com.vahid.cryptocurrencyapp.domain.use_case.GetDaiUseCase
-import com.vahid.cryptocurrencyapp.domain.use_case.GetDollarPriceUseCase
 import com.vahid.cryptocurrencyapp.domain.use_case.GetUSDTUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -15,14 +14,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -34,8 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CoinDetailsViewModel @Inject constructor(
     private val getDailUseCase: GetDaiUseCase,
-    private val getUSDTUseCase: GetUSDTUseCase,
-    private val getDollarPriceUseCase: GetDollarPriceUseCase
+    private val getUSDTUseCase: GetUSDTUseCase
 ) : ViewModel() {
 
     private val _stateDail = mutableStateOf(DaiCoindetailState())

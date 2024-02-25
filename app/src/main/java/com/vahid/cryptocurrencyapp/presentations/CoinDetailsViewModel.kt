@@ -23,6 +23,8 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import java.io.IOException
+import java.util.Timer
+import java.util.TimerTask
 import javax.inject.Inject
 
 
@@ -32,38 +34,39 @@ class CoinDetailsViewModel @Inject constructor(
     private val getUSDTUseCase: GetUSDTUseCase
 ) : ViewModel() {
 
-    private val _stateDail = mutableStateOf(DaiCoindetailState())
-    var stateDail: State<DaiCoindetailState> = _stateDail
-
-    val _stateUsdt = mutableStateOf(UsdtCoindetailState())
-    var stateUsdt: State<UsdtCoindetailState> = _stateUsdt
-
     val _stateDollar = MutableSharedFlow<String>(1)
     var stateDollar = _stateDollar.asSharedFlow()
 
-    private val _is_loading = MutableStateFlow(false)
-    val is_loading = _is_loading.asStateFlow()
+    val _dai = MutableSharedFlow<String>(1)
+    var dai = _dai.asSharedFlow()
+
+    val _usdt = MutableSharedFlow<String>(1)
+    var usdt = _usdt.asSharedFlow()
+
+
+    private val _error_message = MutableStateFlow("")
+    val error_message = _error_message.asStateFlow()
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
 
     init {
-        onReferesh()
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                onReferesh()
+            }
+        }, 1, 5000)
     }
 
     fun onReferesh() {
+        _isLoading.value = true
         viewModelScope.launch {
-            _is_loading.value = true
             getDollarFormSpoap()
             getUSDT()
             getDAI()
-            delay(1000)
-            _is_loading.value = false
         }
-    }
-
-
-    fun getDollar() {
-        viewModelScope.launch {
-            getDollarFormSpoap()
-        }
+        _isLoading.value = false
     }
 
     private suspend fun getDollarFormSpoap() {
@@ -92,8 +95,11 @@ class CoinDetailsViewModel @Inject constructor(
                     }
                     dollarEnPrice = dollarEnPrice + en
                 }
-                Log.d("result", dollarEnPrice)
-                val formatDollar = dollarEnPrice.toInt() / 10
+                var formatDollar = 0
+                if (!dollarEnPrice.isNullOrBlank()) {
+                    Log.d("result", dollarEnPrice)
+                    formatDollar = dollarEnPrice.toInt() / 10
+                }
                 _stateDollar.emit(formatDollar.toString())
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -107,17 +113,16 @@ class CoinDetailsViewModel @Inject constructor(
                 is Resource.Success -> {
                     val latest = result.data?.stats?.daiRls?.latest ?: "0"
                     val format_latest = latest.toInt() / 10
-                    _stateDail.value = DaiCoindetailState(latest = format_latest.toString())
+//                    _stateDail.value = DaiCoindetailState(latest = format_latest.toString())
+                    _dai.emit(format_latest.toString())
                 }
 
                 is Resource.Error -> {
-                    _stateDail.value = DaiCoindetailState(
-                        error = result.message ?: "An unexpected error occured"
-                    )
+                    _error_message.emit(result.message ?: "An unexpected error occured")
                 }
 
                 is Resource.Loading -> {
-                    _stateDail.value = DaiCoindetailState(isLoading = true)
+//                    _stateDail.value = DaiCoindetailState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)
@@ -129,17 +134,16 @@ class CoinDetailsViewModel @Inject constructor(
                 is Resource.Success -> {
                     val latest = result.data?.stats?.usdtRls?.latest ?: "0"
                     val format_latest = latest.toInt() / 10
-                    _stateUsdt.value = UsdtCoindetailState(latest = format_latest.toString())
+                    _usdt.emit(format_latest.toString())
+//                    _stateUsdt.value = UsdtCoindetailState(latest = format_latest.toString())
                 }
 
                 is Resource.Error -> {
-                    _stateUsdt.value = UsdtCoindetailState(
-                        error = result.message ?: "An unexpected error occured"
-                    )
+                    _error_message.emit(result.message ?: "An unexpected error occured")
                 }
 
                 is Resource.Loading -> {
-                    _stateUsdt.value = UsdtCoindetailState(isLoading = true)
+//                    _stateUsdt.value = UsdtCoindetailState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)
